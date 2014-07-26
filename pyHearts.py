@@ -155,7 +155,7 @@ def makeMove(table, player, trump):
     # Recursively play around the table
     elif player.getName() is 'Player':
         # Receive card choice from player in format Value, Suit
-        card = str(raw_input("Choose a card to play (V, S): "))
+        card = str(raw_input("Choose a card to play (V,S): "))
         print "\n"
         value, suit = card.split(",")
         # Search through players cards
@@ -222,6 +222,8 @@ def playGame(table, discards, deck, dealer):
     # Recursively plays the game
     else:
         # Deal and start game
+        print "Dealing the deck...\n"
+        time.sleep(2)
         deck.shuffle()
         deal(deck, dealer.getNextPlayer())
         # Play 13 rounds (one for each card)
@@ -237,10 +239,12 @@ def playGame(table, discards, deck, dealer):
         deal(deck, dealer.getNextPlayer())
         playGame(table, discards, deck, dealer.getNextPlayer())
 
-# Establish global card deck suits / value
-suitList = ['C', 'H', 'D', 'S']
-valueList = range(2, 15)
-valueDict = {11 : 'J', 12 : 'Q', 13 : 'K', 14 : 'A'}
+# Welcome message
+print "------------------"
+print "WELCOME TO HEARTS!"
+print "By: Andrew Lawson"
+print "------------------"
+time.sleep(2)
 # Initialize table
 table = []
 discards = []
@@ -255,8 +259,8 @@ cpuTwo.setNextPlayer(cpuThree)
 cpuThree.setNextPlayer(human)
 # Intialize deck
 cards = []
-for suit in suitList:
-	for value in valueList:
+for suit in ['C', 'H', 'D', 'S']:
+	for value in range(2, 15):
 		card = Card(suit, value)
 		cards.append(card)
 deck = Deck(cards)
