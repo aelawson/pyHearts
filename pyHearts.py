@@ -145,7 +145,7 @@ def deal(deck, player):
 	# Recursively deal around the table
 	else:
 		card = deck.deal_card()
-		card.setOwner(player)
+		card.owner = player
 		player.add_card(card)
 		deal(deck, player.next_player)
 
