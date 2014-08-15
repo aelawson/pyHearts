@@ -123,7 +123,7 @@ def print_score(player, dealer):
 def print_hand(player):
     if player.name is 'Player':
         print "YOUR HAND:"
-        for card in human.getCards():
+        for card in human.cards:
             print '|' + str(card.value) + ' ' + str(card.suit) + '|',
         print "\n"
         return
@@ -161,7 +161,7 @@ def make_move(table, player, trump):
 	        # Search through players cards
 	        # CHANGE: Binary search. Response if card is not there. Must follow trump.
 	        # CHANGE: Cannot open with hearts or QoS.
-	        for card in player.getCards():
+	        for card in player.cards:
 	        	if int(value) is card.value and suit is card.suit:
 	            		# If first move, define the round trump
 	    			if len(table) is 0:
