@@ -22,9 +22,8 @@ def check_score(player, dealer):
         check_score(player.next_player, dealer)
 
 # See if a player's move was valid and if hearts are broken.
-def check_move(card, table, player, trump, broken, roundNum):
+def check_move(value, suit, table, player, trump, broken, roundNum):
     # If it's the first round
-    value, suit = card.split(",")
     if roundNum is 0:
         # If it's the first card
         if len(table) is 0:
@@ -90,7 +89,8 @@ def make_move(table, player, trump, broken, roundNum):
             validMove = False
             while validMove is False:
                 card = str(raw_input("Choose a card to play (V,S): "))
-                broken, validMove = check_move(card, table, player, trump, broken, roundNum)
+                value, suit = card.split(",")
+                broken, validMove = check_move(value, suit, table, player, trump, broken, roundNum)
             print "\n"
             # Search through players cards
             # CHANGE: Binary search?
