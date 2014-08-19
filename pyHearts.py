@@ -1,103 +1,13 @@
-import random
 import time
-import pdb
-
-# Card class
-class Card():
-	def __init__(self, suit, value):
-		self.owner = None
-		self.suit = suit
-		self.value = value
-	def getSuit(self):
-		return self.suit
-	def getValue(self):
-		return self.value
-	def getOwner(self):
-		return self.owner
-	def setOwner(self, owner):
-		self.owner = owner
-
-# Deck class
-class Deck():
-	def __init__(self, cards):
-		self.cards = cards
-	# Shuffles the deck
-	def shuffle(self):
-		random.shuffle(self.cards)
-	# Checks if the deck is empty
-	def isEmpty(self):
-		if len(self.cards) is 0:
-			return True
-		else:
-			return False
-	# Play the next card
-	def dealCard(self):
-		return self.cards.pop()
-	# Returns the list of cards in the deck
-	def getCards(self):
-		return self.cards
-
-# Player class
-class Player():
-	def __init__(self, name, points):
-		self.name = name
-		self.cards = []
-		self.points = points
-	def getName(self):
-		return self.name
-	def getCards(self):
-		return self.cards
-	def addCard(self, card):
-		self.cards.append(card)
-	def removeCard(self, card):
-		for x in self.cards:
-			if x.getValue() is card.getValue() and x.getSuit() is card.getSuit():
-				self.cards.remove(x)
-				break
-	def addPoints(self, points):
-		self.points += points
-	def getPoints(self):
-		return self.points
-	def setNextPlayer(self, nextPlayer):
-		self.nextPlayer = nextPlayer
-	def getNextPlayer(self):
-		return self.nextPlayer
-	def sortHand(self):
-		spades = []
-		diamonds = []
-		hearts = []
-		clubs = []
-		for card in self.cards:
-			if card.getSuit() is 'C':
-				clubs.append(card)
-			elif card.getSuit() is 'H':
-				hearts.append(card)
-			elif card.getSuit() is 'D':
-				diamonds.append(card)
-			elif card.getSuit() is 'S':
-				spades.append(card)
-		clubs.sort()
-		hearts.sort()
-		diamonds.sort()
-		spades.sort()
-		self.cards = clubs
-		self.cards.extend(hearts)
-		self.cards.extend(diamonds)
-		self.cards.extend(spades)
-	def playCard(self):
-		return self.cards.pop()
-
-# Computer class
-#class Computer(player):
-	#player.__init__(self)
+import cards
 
 # Check each player's score.
 def checkScore(player, dealer):
     # Check player's score
     if player.getPoints() >= 50:
         return True
-    # Tail case
-    if player.getNextPlayer() is dealer:
+    # Base case
+    elif player.getNextPlayer() is dealer:
         return False
     # Recursively check scores
     else:
@@ -107,7 +17,7 @@ def checkScore(player, dealer):
 def printScore(player, dealer):
 	# Print player's score
     print str(player.getName()) + "`s current score is: " + str(player.getPoints()) + " points."
-	# Tail case
+	# Base case
     if player.getNextPlayer() is dealer:
         print "\n"
         return
@@ -134,18 +44,6 @@ def printTable(table):
 	for card in table:
 		print '|' + str(card.getValue()) + ' ' + str(card.getSuit()) + '|',
 	print "\n"
-
-# Deal the deck
-def deal(deck, player):
-	# Base case
-	if deck.isEmpty() is True:
-		return
-	# Recursively deal around the table
-	else:
-		card = deck.dealCard()
-		card.setOwner(player)
-		player.addCard(card)
-		deal(deck, player.getNextPlayer())
 
 # Make a move around the table
 def makeMove(table, player, trump):
