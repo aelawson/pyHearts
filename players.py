@@ -54,6 +54,7 @@ class Player(object):
         self._cards.extend(self._hearts)
         self._cards.extend(self._diamonds)
         self._cards.extend(self._spades)
+    # CHANGE: Actual AI logic (will eventually use Computer class).
     def play_card(self):
         return self._cards.pop()
 
@@ -62,7 +63,7 @@ class Human(Player):
     def __init__(self, name, points):
         Player.__init__(self, name, points)
 
-# Computer class
+# Computer class (in progress)
 class Computer(Player):
     def __init__(self, name, points):
         Player.__init__(self, name, points)

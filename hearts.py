@@ -93,7 +93,7 @@ def make_move(table, player, trump, broken, roundNum):
                 broken, validMove = check_move(card, table, player, trump, broken, roundNum)
             print "\n"
             # Search through players cards
-            # CHANGE: Binary search. Response if card is not there. Must follow trump.
+            # CHANGE: Binary search?
             for card in player.cards:
                 if int(value) is card.value and suit is card.suit:
                     # If first move, define the round trump
